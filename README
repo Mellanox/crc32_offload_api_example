@@ -1,0 +1,31 @@
+
+BUILD
+=====
+
+$ make
+cc    -c -o crc32_example.o crc32_example.c
+cc -libverbs -o ibv_crc32_example crc32_example.o
+
+
+Examples:
+
+# Run the server
+./ibv_crc32_example -d mlx5_0 -i 1
+
+# Run the initiator
+./ibv_crc32_example -d mlx5_0 -i 1 11.212.80.5
+
+
+$ ./ibv_crc32_example --help
+Usage:
+ ./ibv_crc32_example start a server and wait for connection
+ ./ibv_crc32_example <host> connect to server at <host>
+
+Options:
+ -p, --port <port>            listen on/connect to port <port> (default 18515)
+ -d, --ib-dev <dev>           use IB device <dev> (default first device found)
+ -i, --ib-port <port>         use port <port> of IB device (default 1)
+ -g, --gid_idx <git index>    gid index to be used in GRH (default not used)
+ -b, --block-size <size>      size of data block, only 512 and 4096 are supported (default 512)
+ -n, --number-of-blocks <NB>  Number of blocks per RDMA operation (default 8)
+ -o, --interleave             Contiguous data segments and signature blocks logically interleaved using UMR capabilities. (disabled by default)
